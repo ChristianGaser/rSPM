@@ -1,0 +1,8 @@
+rSPM Toolbox version v1.02
+Christian Gaser | christian.gaser@uni-jena.de | dbm.neuro.uni-jena.de/vbm
+
+======================================================================
+Installation
+======================================================================
+
+First, unpack the zip-file and copy or link the rSPM folder to the spm5/toolbox directory. You can start the toolbox by choosing "rSPM" in the "Toolboxes" selector. Alternatively you can use the "TASKS" button (right in the Graphics window): select TASKS | Tools | rSPM. 

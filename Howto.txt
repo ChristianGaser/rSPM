@@ -1,0 +1,37 @@
+1. Check files
+----------------------------------------------------------------------------
+cg_check_dicoms
+ - Filt: 100 or 200 or 300 (or other unique MR number which exists for all subjects)
+ - Rec
+ 
+2. Convert DICOM to nifti
+----------------------------------------------------------------------------
+Toolbox | rSPM | DICOM Import | DICOM files | Select Files
+- Filt: ^MR
+- Rec
+
+3. Correct orientation
+----------------------------------------------------------------------------
+SPM | Display
+ - pitch: pi/2
+ - x: -1
+ - y: -1
+ - check for tube on left hemisphere (and lesion on the right)
+Reorient images
+ 
+4. Preprocessing
+----------------------------------------------------------------------------
+Toolbox | rSPM | Preprocess data
+ - select images for each subject, press Done
+ - choose between longitudinal and cross-sectional data 
+ 
+5. Check preprocessing
+----------------------------------------------------------------------------
+Toolbox | VBM8 | Tools | Display one slice for all images 
+ - Slice: -5mm
+ 
+6. Smoothing
+----------------------------------------------------------------------------
+SPM | Smooth
+ - Images to Smooth: wjd
+ - FWHM: 0.8 0.8 0.8
