@@ -10,7 +10,7 @@ function opts = cg_config_rSPM
 
 cg_rSPM_defaults
 
-addpath(fileparts(which(mfilename)));
+%addpath(fileparts(which(mfilename)));
 
 addpath(fullfile(spm('dir'),'toolbox','HDW'));
 
@@ -53,7 +53,7 @@ subj.name = 'Subject';
 subj.tag = 'subj';
 subj.val = {mov};
 subj.help = {[...
-'Two images of the same subject, which are to be registered together.  Prior to nonlinear high-dimensional warping, the images should be rigidly registered with each other.']};
+'Images of the same subject, which are to be registered together.  Prior to nonlinear high-dimensional warping, the images should be rigidly registered with each other.']};
 
 %------------------------------------------------------------------------
 

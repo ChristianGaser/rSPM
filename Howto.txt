@@ -1,14 +1,23 @@
-1. Check files
+0. Organize dicom files into meaningful structure
 ----------------------------------------------------------------------------
+ - use meaningful directory names like PT10_0W PT10_1W ...
+ 
+1. Check files for correct date and order
+----------------------------------------------------------------------------
+Toolbox | rSPM
 cg_check_dicoms
+ - goto most upper directory
  - Filt: 100 or 200 or 300 (or other unique MR number which exists for all subjects)
- - Rec
+ - Rec (to go into every single directory)
  
 2. Convert DICOM to nifti
 ----------------------------------------------------------------------------
 Toolbox | rSPM | DICOM Import | DICOM files | Select Files
-- Filt: ^MR
-- Rec
+ - goto most upper directory
+ - Filt: ^MR (meants that names begin with "MR")
+ - Rec
+ - select output directory
+ - filenames are according to directory structure (e.g. PT_1W_xxx)
 
 3. Correct orientation
 ----------------------------------------------------------------------------
@@ -17,21 +26,45 @@ SPM | Display
  - x: -1
  - y: -1
  - check for tube on left hemisphere (and lesion on the right)
-Reorient images
+ - Reorient images: Select all converted images
  
 4. Preprocessing
 ----------------------------------------------------------------------------
 Toolbox | rSPM | Preprocess data
- - select images for each subject, press Done
+ - select all images (time points) for each subject, press Done
+ - to finish press done without select images
  - choose between longitudinal and cross-sectional data 
+ - resulting images, which should be further used are "wjd_my_rwr*" (volume changes)
+ - warped anatomical images are "wrwr*"
  
 5. Check preprocessing
 ----------------------------------------------------------------------------
 Toolbox | VBM8 | Tools | Display one slice for all images 
+ - select wrwr* (warped anatomical images)
  - Slice: -5mm
+
+Check Reg
+ - select wjd_* for some subjects (up to 15 images)
  
-6. Smoothing
+6. Data organizing
+----------------------------------------------------------------------------
+ - create seperate directories for wrwr (anatomical images) and wjd (volume changes)
+
+7. Smoothing
 ----------------------------------------------------------------------------
 SPM | Smooth
- - Images to Smooth: wjd
- - FWHM: 0.8 0.8 0.8
+ - Images to Smooth: wjd_
+ - FWHM: 0.6 0.6 0.6
+ - Filename prefix "s6"
+
+X. Calculate average anatomical images 
+----------------------------------------------------------------------------
+cg_avg
+ - select all images seperately for 0W, 1W... (maybe lesion only)
+ - Global normalization: yes
+ - Masking: no
+ 
+X. General Display
+----------------------------------------------------------------------------
+Display or Check Reg
+ - bb (to show high spatial resolution)
