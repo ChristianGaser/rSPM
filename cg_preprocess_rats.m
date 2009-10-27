@@ -182,21 +182,15 @@ com_reference = [0 -4.5 -13.5];
 for i=1:n
   fprintf('Correct center-of-mass for %s\n',V(i).fname);
   Affine = eye(4);
-  [R,C,P] = ndgrid(1:V(1).dim(1),1:V(1).dim(2),1:V(1).dim(3));
-	RCP = [R(:)';C(:)';P(:)'];
-	clear R C P
-	RCP(4,:)=1;
-	XYZ = V(i).mat(1:3,:)*RCP;
-	clear RCP
   vol = spm_read_vols(V(i));
   avg = mean(vol(:));
   avg = mean(vol(find(vol>avg)));
   
 	% don't use background values
-	XYZ = XYZ(:,find(vol > avg));
+	[x,y,z] = ind2sub(size(vol),find(vol>avg));
+	com = V(i).mat(1:3,:)*[mean(x) mean(y) mean(z) 1]';
+	com = com';
 
-	% COM is mean of remaining coordinates above threshold
-	com = mean(XYZ,2)';
 	M = spm_get_space(V(i).fname);
 	Affine(1:3,4) = (com - com_reference)';
   spm_get_space(V(i).fname,Affine\M);
