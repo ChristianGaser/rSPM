@@ -21,9 +21,10 @@ m = size(P,2) - 1;
 for j=1:m
 	n = size(P{j},1);
 	for i=1:n
+	  file = deblank(P{j}(i,:));
     matlabbatch{1}.spm.spatial.coreg.estimate.ref = {fullfile(spmdir,'toolbox','rSPM','T2-Paxinos-avg36.nii')};  
-    cg_set_com(P{j}(i,:));
-    matlabbatch{1}.spm.spatial.coreg.estimate.source = {P{j}(i,:)};
+    cg_set_com(file);
+    matlabbatch{1}.spm.spatial.coreg.estimate.source = {file};
     matlabbatch{1}.spm.spatial.coreg.estimate.other = {''};
     matlabbatch{1}.spm.spatial.coreg.estimate.eoptions.cost_fun = 'nmi';
     matlabbatch{1}.spm.spatial.coreg.estimate.eoptions.sep = 0.6;
@@ -44,7 +45,7 @@ for j=1:m
 	n = size(P{j},1);
 	C = cell(n,1);
 	for i=1:n
-		C{i} = P{j}(i,:);
+		C{i} = deblank(P{j}(i,:));
 	end
 	
 	% 1st registration
