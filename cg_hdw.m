@@ -185,7 +185,7 @@ function VO = bias_correction(VF,VG,VG0,mask,nits,fwhm,reg1,reg2,sf)
 if isempty((VG0)), VG0 = VF; end
 
 if ~isempty(char(mask))
-  fprintf('Mask %s\n',VF.fname);
+  fprintf('Apply mask to %s\n',VF.fname);
   Vm = spm_vol(char(mask));
 end
 
