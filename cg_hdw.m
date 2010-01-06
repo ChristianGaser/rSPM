@@ -59,7 +59,7 @@ Def{2} = Def{2}(ones(VG.dim(1),1),:,ones(VG.dim(3),1));
 Def{3} = reshape(single(1:VG.dim(3)),1,1,VG.dim(3));
 Def{3} = Def{3}(ones(VG.dim(1),1),ones(VG.dim(2),1),:);
 spm_affdef(Def{:},VF.mat\VG.mat);
-inverse = 1
+inverse = 0;
 if inverse	
 	% inverse field
   iDef    = cell(3,1);

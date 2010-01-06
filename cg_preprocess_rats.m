@@ -49,34 +49,29 @@ for j=1:m
 	end
 	
 	% 1st registration
-	matlabbatch{1}.spm.spatial.realign.estwrite.data = {C};
-	matlabbatch{1}.spm.spatial.realign.estwrite.eoptions.quality = 0.9;
-	matlabbatch{1}.spm.spatial.realign.estwrite.eoptions.sep = 0.4;
-	matlabbatch{1}.spm.spatial.realign.estwrite.eoptions.fwhm = 0.5;
-	matlabbatch{1}.spm.spatial.realign.estwrite.eoptions.rtm = 0;
-	matlabbatch{1}.spm.spatial.realign.estwrite.eoptions.interp = 2;
-	matlabbatch{1}.spm.spatial.realign.estwrite.eoptions.wrap = [0 0 0];
-	matlabbatch{1}.spm.spatial.realign.estwrite.eoptions.weight = {''};
-	matlabbatch{1}.spm.spatial.realign.estwrite.roptions.which = [2 0];
-	matlabbatch{1}.spm.spatial.realign.estwrite.roptions.interp = 4;
-	matlabbatch{1}.spm.spatial.realign.estwrite.roptions.wrap = [0 0 0];
-	matlabbatch{1}.spm.spatial.realign.estwrite.roptions.mask = 0;
-	matlabbatch{1}.spm.spatial.realign.estwrite.roptions.prefix = 'r';
+	matlabbatch{1}.spm.spatial.realign.estimate.data = {C};
+	matlabbatch{1}.spm.spatial.realign.estimate.eoptions.quality = 0.9;
+	matlabbatch{1}.spm.spatial.realign.estimate.eoptions.sep = 0.4;
+	matlabbatch{1}.spm.spatial.realign.estimate.eoptions.fwhm = 0.5;
+	matlabbatch{1}.spm.spatial.realign.estimate.eoptions.rtm = 0;
+	matlabbatch{1}.spm.spatial.realign.estimate.eoptions.interp = 2;
+	matlabbatch{1}.spm.spatial.realign.estimate.eoptions.wrap = [0 0 0];
+	matlabbatch{1}.spm.spatial.realign.estimate.eoptions.weight = {''};
 	
 	% normalization
 	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.source(1) = cfg_dep;
 	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.source(1).tname = 'Source Image';
 	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.source(1).tgt_spec = {};
-	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.source(1).sname = 'Realign: Estimate & Reslice: Resliced Images (Sess 1)';
+	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.source(1).sname = 'Realign: Estimate: Realigned Images (Sess 1)';
 	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.source(1).src_exbranch = substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1});
-	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.source(1).src_output = substruct('.','sess', '()',{1}, '.','rfiles');
+	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.source(1).src_output = substruct('.','sess', '()',{1}, '.','cfiles');
 	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.wtsrc = '';
 	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.resample(1) = cfg_dep;
 	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.resample(1).tname = 'Images to Write';
 	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.resample(1).tgt_spec = {};
-	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.resample(1).sname = 'Realign: Estimate & Reslice: Resliced Images (Sess 1)';
+	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.resample(1).sname = 'Realign: Estimate: Realigned Images (Sess 1)';
 	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.resample(1).src_exbranch = substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1});
-	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.resample(1).src_output = substruct('.','sess', '()',{1}, '.','rfiles');
+	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.resample(1).src_output = substruct('.','sess', '()',{1}, '.','cfiles');
 	matlabbatch{2}.spm.spatial.normalise.estwrite.eoptions.template = {fullfile(spmdir,'toolbox','rSPM','T2-Paxinos-avg36.nii')};
 	matlabbatch{2}.spm.spatial.normalise.estwrite.eoptions.weight = {fullfile(spmdir,'toolbox','rSPM','Brainmask-Paxinos.nii')};
 	matlabbatch{2}.spm.spatial.normalise.estwrite.eoptions.smosrc = 0.8;
