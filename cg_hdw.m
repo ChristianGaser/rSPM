@@ -119,7 +119,7 @@ if nargin<2, VG0=V; end
 if isempty(VG0), VG0 = V; end
 
 if ~isempty(char(mask))
-  fprintf('Mask %s\n',V.fname);
+  fprintf('Apply mask to %s\n',V.fname);
   Vm = spm_vol(char(mask));
 end
 
