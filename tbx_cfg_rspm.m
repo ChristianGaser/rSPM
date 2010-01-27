@@ -265,7 +265,7 @@ writjac.name = 'Write Jacobian determinant';
 writjac.tag  = 'writejac';
 writjac.val  = {data,roptions};
 writjac.prog = @writejac;
-writjac.vout = @vout_writejac;
+%writjac.vout = @vout_writejac;
 writjac.help   = {[...
 'Use previously estimated warps (stored in imagename''_sn.mat'' files) to write Jacobian determinant (volume changes).']};
 
@@ -370,7 +370,7 @@ end;
 
 %------------------------------------------------------------------------
 function dep = vout_writejac(job)
-for k=1:numel(job.subj)
+for k=1:numel(job.data)
     dep(k)            = cfg_dep;
     dep(k).sname      = sprintf('Norm Params File (Subj %d)',k);
     dep(k).src_output = substruct('()',{k},'.','files');
@@ -382,7 +382,7 @@ end;
 function vf = vfiles_writejac(varargin)
 job = varargin{1};
 vf  = {};
-for i=1:length(job.subj),
+for i=1:length(job.data),
     res = job.subj(i).matname;
     vf1 = cell(1,length(res));
     for j=1:length(res),

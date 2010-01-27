@@ -37,6 +37,5 @@ zip: update
 	-@zip ${ZIPFILE} -rm rSPM
 
 scp: zip
-	-@echo scp
-	-@cp ${ZIPFILE} rSPM_latest.zip
-	-@scp -pr rSPM_latest.zip ${ZIPFILE} ${STARGET}
+	-@echo scp http://dbm.neuro.uni-jena.de/${ZIPFILE}
+	-@scp -pr ${ZIPFILE} ${STARGET}
