@@ -81,6 +81,7 @@ vxf = sqrt(sum(VF.mat(1:3,1:3).^2))';if det(VF.mat(1:3,1:3))<0, vxf(1) = -vxf(1)
 % Do warping
 %-----------------------------------------------------------------------
 fprintf('Warping (iterations=%d regularisation=%g)\n', nit, reg);
+
 spm_warp(VG.uint8,VF.uint8,Def{:},[vxg vxf],[nit,reg,1,0]);
 
 if inverse
@@ -286,6 +287,12 @@ for z=1:VG0.dim(3),
     r  = transf(B1bias,B2bias,B3bias(z,:),Tbias);
     f1 = f1./exp(r);
     udat(:,:,z) = round(max(min(f1*sf,255),0));
+    % load mask image
+    if ~isempty(char(mask))
+        Mm = M\Vm.mat\spm_matrix([0 0 z]);
+        tmp_mask = spm_slice_vol(Vm,Mm,VG0.dim(1:2),1);
+        udat(:,:,z) = udat(:,:,z).*uint8(tmp_mask>0);
+    end
 end;
 
 VO = VG0;
