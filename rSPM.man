@@ -1,9 +1,15 @@
-
 % __________________________________________________________________________
-%  Rat SPM Toolbox
-%  http://dbm.neuro.uni-jena.de/
+% Rat SPM Toolbox
+% Version  13  (rSPM)  2010-02-12
+%  http://dbm.neuro.uni-jena.de/vbm/
 % __________________________________________________________________________
-% v1.02 Copyright (C) 2008 Christian Gaser christian.gaser@uni-jena.de
+%        ___  ____  __  __
+%  ___  / __)(  _ \(  \/  )  
+% (___) \__ \ )___/ )    (   Rat Statistical Parametric Mapping
+% (_)   (___/(__)  (_/\/\_)  http://dbm.neuro.uni-jena.de/vbm/
+%
+% __________________________________________________________________________
+% (C) 2010 Christian Gaser christian.gaser@uni-jena.de
 % 
 % ==========================================================================
 % Description
@@ -14,4 +20,4 @@
 % community under the terms of the GNU General Public License.
 % 
 % __________________________________________________________________________
-%                                                Christian Gaser 2008/08/27
+%                                                Christian Gaser 2010/02/12

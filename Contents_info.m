@@ -1,11 +1,12 @@
 % ______________________________________________________________________
+% Copyright (C) 2010 Christian Gaser christian.gaser@uni-jena.de
 %        ___  ____  __  __
 %  ___  / __)(  _ \(  \/  )  
 % (___) \__ \ )___/ )    (   Rat Statistical Parametric Mapping
 % (_)   (___/(__)  (_/\/\_)  http://dbm.neuro.uni-jena.de/vbm/
 %
 % ______________________________________________________________________
-% v1.02 Copyright (C) 2008 Christian Gaser christian.gaser@uni-jena.de
+% $Id: Contents_info.txt 272 2010-02-04 16:39:38Z gaser $
 %  http://dbm.neuro.uni-jena.de
 %
 % General files

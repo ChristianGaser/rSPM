@@ -23,12 +23,16 @@ update:
 	-@svn update
 	-@echo '% __________________________________________________________________________' > Contents.m
 	-@echo '% Rat SPM Toolbox' >> Contents.m
-	-@echo '% Version ' ${VERSION} ' (VBM8) ' ${DATE} >> Contents.m
+	-@echo '% Version ' ${VERSION} ' (rSPM) ' ${DATE} >> Contents.m
 	-@cat Contents_info.m >> Contents.m
+	-@echo '% __________________________________________________________________________' > rSPM.man
+	-@echo '% Rat SPM Toolbox' >> rSPM.man
+	-@echo '% Version ' ${VERSION} ' (rSPM) ' ${DATE} >> rSPM.man
+	-@cat rSPM.txt >> rSPM.man
 
 help:
 	-@echo Available commands:
-	-@echo install zip scp upgrade
+	-@echo install zip scp update
 
 zip: update
 	-@echo zip
