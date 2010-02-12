@@ -40,14 +40,14 @@ defaults.rspm.write.wrap       = [0 0 0];
 
 % HDW options
 %=======================================================================
-defaults.rspm.hdw.subsamp      = {fullfile(rSPMdir,'Ref0.4mm.nii')};
+defaults.rspm.hdw.subsamp      = {''};
 defaults.rspm.hdw.weight       = {fullfile(rSPMdir,'Brainmask-Paxinos.nii')};
 defaults.rspm.hdw.nits_bias    = 8;
 defaults.rspm.hdw.biasfwhm     = 6;
 defaults.rspm.hdw.biasreg      = 1e-6;
 defaults.rspm.hdw.lmreg        = 1e-6;
-defaults.rspm.hdw.warpreg      = 4;
-defaults.rspm.hdw.nits_reg     = 8;
+defaults.rspm.hdw.warpreg      = 10;
+defaults.rspm.hdw.nits_reg     = 50;
 
 % DICOM Import defaults
 %=======================================================================

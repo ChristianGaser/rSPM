@@ -24,7 +24,7 @@ subsamp.ufilter = '^.*';
 subsamp.num  = [0 1];
 subsamp.def     = @(val)spm_get_defaults('rspm.hdw.subsamp', val{:});
 subsamp.help   = {[...
-'This is the reference image, which is usd to subsample data to a smaller size']};
+'This is the reference image, which is used to subsample data to a smaller size']};
 %------------------------------------------------------------------------
 
 weight = cfg_files;
@@ -42,7 +42,7 @@ mov = cfg_files;
 mov.name = 'Images to warp';
 mov.tag  = 'mov';
 mov.filter = 'image';
-mov.ufilter = '^rwr.*\.nii$';
+mov.ufilter = '^rw.*\.nii$';
 mov.num  = [1 Inf];
 mov.help   = {[...
 'These are the images, which are warped to the first image.']};

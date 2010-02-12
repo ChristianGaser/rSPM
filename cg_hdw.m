@@ -82,11 +82,11 @@ vxf = sqrt(sum(VF.mat(1:3,1:3).^2))';if det(VF.mat(1:3,1:3))<0, vxf(1) = -vxf(1)
 %-----------------------------------------------------------------------
 fprintf('Warping (iterations=%d regularisation=%g)\n', nit, reg);
 
-spm_warp(VG.uint8,VF.uint8,Def{:},[vxg vxf],[nit,reg,1,0]);
+cg_warp(VG.uint8,VF.uint8,Def{:},[vxg vxf],[nit,reg,1,0]);
 
 if inverse
 	% inverse warping
-	spm_warp(VF.uint8,VG.uint8,iDef{:},[vxg vxf],[nit,reg,1,0]);
+	cg_warp(VF.uint8,VG.uint8,iDef{:},[vxg vxf],[nit,reg,1,0]);
 
 	% combine both by averaging
 	try

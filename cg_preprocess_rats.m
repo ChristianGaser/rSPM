@@ -124,7 +124,7 @@ for j=1:m
 	  matlabbatch{4}.spm.tools.rspm.hdw.bias_opts.lmreg = 1e-06;
 	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.subsamp = {''};
 	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.weight = {fullfile(spmdir,'toolbox','rSPM','Brainmask-Paxinos.nii')};
-	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.nits = 8;
+	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.nits = 50;
 	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.reg = 10;
 
   	% final non-linear normalization if previously only affine normalization was applied
