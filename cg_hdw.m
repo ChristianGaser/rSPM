@@ -42,7 +42,7 @@ nit = warp_opts.nits;
 % Load the image pair as 8 bit.
 %-----------------------------------------------------------------------
 bo            = bias_opts;
-[VG,sf]       = loaduint8(VG,VG0,mask); % Template
+[VG,sf]       = loadfloat(VG,VG0,mask); % Template
 VF      = bias_correction(VF,VG,VG0,mask,bo.nits,bo.fwhm,bo.reg,bo.lmreg,sf);
 
 % Try loading pre-existing deformation fields.  Otherwise, create
@@ -82,11 +82,11 @@ vxf = sqrt(sum(VF.mat(1:3,1:3).^2))';if det(VF.mat(1:3,1:3))<0, vxf(1) = -vxf(1)
 %-----------------------------------------------------------------------
 fprintf('Warping (iterations=%d regularisation=%g)\n', nit, reg);
 
-cg_warp(VG.uint8,VF.uint8,Def{:},[vxg vxf],[nit,reg,1,0]);
+cg_warp(VG.single,VF.single,Def{:},[vxg vxf],[nit,reg,1,0]);
 
 if inverse
 	% inverse warping
-	cg_warp(VF.uint8,VG.uint8,iDef{:},[vxg vxf],[nit,reg,1,0]);
+	cg_warp(VF.single,VG.single,iDef{:},[vxg vxf],[nit,reg,1,0]);
 
 	% combine both by averaging
 	try
@@ -110,9 +110,8 @@ save_def(Def,VG.mat,ofname,mask)
 return;
 %_______________________________________________________________________
 
-%_______________________________________________________________________
-function [VO,sf] = loaduint8(V,VG0,mask)
-% Load data from file indicated by V into an array of unsigned bytes.
+function [VO,sf] = loadfloat(V,VG0,mask)
+% Load data from file indicated by V into an array of floating values.
 
 if nargin<3, mask=''; end
 if nargin<2, VG0=V; end
@@ -138,25 +137,25 @@ end;
 spm_progress_bar('Init',V.dim(3),...
         ['Loading ' spm_str_manip(V.fname,'t')],...
         'Planes loaded');
-sf = 255/mx;
+sf = 1;
 
-udat = zeros(VG0.dim(1:3),'uint8');
+udat = zeros(VG0.dim(1:3),'single');
 for p=1:VG0.dim(3),
         M1 = M\V.mat\spm_matrix([0 0 p]);
         img = spm_slice_vol(V,M1,VG0.dim(1:2),1);
-        udat(:,:,p) = round(max(min(img*sf,255),0));
+        udat(:,:,p) = single(img*sf);
         % load mask image
         if ~isempty(char(mask))
             Mm = M\Vm.mat\spm_matrix([0 0 p]);
             tmp_mask = spm_slice_vol(Vm,Mm,VG0.dim(1:2),1);
-            udat(:,:,p) = udat(:,:,p).*uint8(tmp_mask>0);
+            udat(:,:,p) = udat(:,:,p).*single(tmp_mask>0);
         end
         spm_progress_bar('Set',p);
 end;
 spm_progress_bar('Clear');
 VO = VG0;
 VO.fname = V.fname;
-VO.uint8 = uint8(round(udat*(255/mx)));
+VO.single = udat;
 return;
 %_______________________________________________________________________
 
@@ -219,7 +218,7 @@ for subit=1:nits,
     for z=1:VG0.dim(3),
         M1 = M\VF.mat\spm_matrix([0 0 z]);
         f1o = spm_slice_vol(VF,M1,VG0.dim(1:2),0);
-        f2o = double(VG.uint8(:,:,z))/sf;
+        f2o = double(VG.single(:,:,z))/sf;
         % load mask image
         if ~isempty(char(mask))
             Mm = M\Vm.mat\spm_matrix([0 0 z]);
@@ -280,27 +279,26 @@ for subit=1:nits,
     end;
 end;
 
-udat = zeros(VG0.dim(1:3),'uint8');
+udat = zeros(VG0.dim(1:3),'single');
 for z=1:VG0.dim(3),
     M1 = M\VF.mat\spm_matrix([0 0 z]);
     f1 = spm_slice_vol(VF,M1,VG0.dim(1:2),1);
     r  = transf(B1bias,B2bias,B3bias(z,:),Tbias);
     f1 = f1./exp(r);
-    udat(:,:,z) = round(max(min(f1*sf,255),0));
+    udat(:,:,z) = single(f1*sf);
     % load mask image
     if ~isempty(char(mask))
         Mm = M\Vm.mat\spm_matrix([0 0 z]);
         tmp_mask = spm_slice_vol(Vm,Mm,VG0.dim(1:2),1);
-        udat(:,:,z) = udat(:,:,z).*uint8(tmp_mask>0);
+        udat(:,:,z) = udat(:,:,z).*single(tmp_mask>0);
     end
 end;
 
 VO = VG0;
 VO.fname = VF.fname;
-VO.uint8 = udat;
+VO.single = udat;
 
 return;
-%_______________________________________________________________________
 
 %_______________________________________________________________________
 function save_def(Def,mat,fname,mask)

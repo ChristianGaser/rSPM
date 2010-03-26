@@ -19,7 +19,11 @@
 #include <stdio.h>
 #include "mex.h"
 
-static float resample(unsigned char vol[], float x1, float x2, float x3, int dim[3])
+#ifndef EPSILON
+#define EPSILON ( 1.0e-14 )
+#endif
+
+static float resample(float vol[], float x1, float x2, float x3, int dim[3])
 {
     float out;
     if (x3>=1 && x3<dim[2] && x2>=1 && x2<dim[1] && x1>=1 && x1<dim[0])
@@ -45,7 +49,7 @@ static float resample(unsigned char vol[], float x1, float x2, float x3, int dim
     return(out);
 }
 
-static float resample_d(unsigned char vol[], float x1, float x2, float x3, int dim[3], float *gradx1, float *gradx2, float *gradx3)
+static float resample_d(float vol[], float x1, float x2, float x3, int dim[3], float *gradx1, float *gradx2, float *gradx3)
 {
     float out;
     if (x3>=1 && x3<dim[2] && x2>=1 && x2<dim[1] && x1>=1 && x1<dim[0])
@@ -399,8 +403,8 @@ static void setup_consts(int dim[3], float vox_g[3])
 
 
 static void tweek(int x0, int x1, int x2, float *Y0, float *Y1, float *Y2,
-    int dim_g[3], unsigned char gvol[],
-    int dim_f[3], float vox_f[3], unsigned char fvol[],
+    int dim_g[3], float gvol[],
+    int dim_f[3], float vox_f[3], float fvol[],
     int msk, float lambda, float epsilon, float v, float scale,
     float *hf, float *hp, int *n, float *sumf, float *sumg, int *cnt, int sgn)
 {
@@ -576,7 +580,7 @@ static void tweek(int x0, int x1, int x2, float *Y0, float *Y1, float *Y2,
 
 
 
-static void warp3d(unsigned char g[], unsigned char f[],
+static void warp3d(float g[], float f[],
     float y0[], float y1[], float y2[],
     int dim_g[3], float vox_g[3], int dim_f[3], float vox_f[3],
     float *lambda, float *epsilon, float *sigma2, float *scale, int meth)
@@ -625,7 +629,7 @@ static void warp3d(unsigned char g[], unsigned char f[],
     }
     *epsilon = *epsilon/cnt*n;
     *scale = sumg/sumf;
-    *sigma2 = hf/n;
+    *sigma2 = hf/(n+EPSILON);
 /*    (void)mexPrintf("%.8g\n", hf/n); */
 
     sumf = sumg = 0.0;
@@ -662,11 +666,11 @@ static void warp3d(unsigned char g[], unsigned char f[],
     }
     *epsilon = *epsilon/cnt*n;
     *scale   = sumg/sumf;
-    *sigma2  = hf/n;
+    *sigma2  = hf/(n+EPSILON);
 /*    (void)mexPrintf("%.8g\n", hf/n); */
 }
 
-static float get_scale(unsigned char g[], unsigned char f[], float y0[], float y1[], float y2[], int dim_g[3], int dim_f[3])
+static float get_scale(float g[], float f[], float y0[], float y1[], float y2[], int dim_g[3], int dim_f[3])
 {
     int x0, x1, x2, o;
     float scale = 0.0;
@@ -690,7 +694,7 @@ static float get_scale(unsigned char g[], unsigned char f[], float y0[], float y
     return(scale);
 }
 
-static float get_sumsq(unsigned char g[], unsigned char f[], float y0[], float y1[], float y2[], int dim_g[3], int dim_f[3], float scale)
+static float get_sumsq(float g[], float f[], float y0[], float y1[], float y2[], int dim_g[3], int dim_f[3], float scale)
 {
     int x0, x1, x2, o, n=0;
     float sigma2 = 0.0, tmp;
@@ -711,11 +715,11 @@ static float get_sumsq(unsigned char g[], unsigned char f[], float y0[], float y
                     n ++;
                 }
             }
-    sigma2 /= (2*n);
+    sigma2 /= (2*n)+EPSILON;
     return(sigma2);
 }
 
-static void estimate_warps(unsigned char g[], unsigned char f[],
+static void estimate_warps(float g[], float f[],
   float y0[], float y1[], float y2[],
   int dim_g[3], float vox_g[3], int dim_f[3], float vox_f[3],
   int its, float lambda, float epsilon, int meth)
@@ -729,7 +733,7 @@ static void estimate_warps(unsigned char g[], unsigned char f[],
   for(iter=0; (iter<its) && (countdown<3); iter++)
   {
     warp3d(g,f,y0,y1,y2, dim_g,vox_g, dim_f,vox_f, &lambda, &epsilon, &sigma2, &scale, meth);
-    rate = (prevsigma2 - sigma2)/(prevsigma2 + sigma2);
+    rate = (prevsigma2 - sigma2)/(prevsigma2 + sigma2 + EPSILON);
     
     if (iter>0){
       (void)mexPrintf("Iteration: %d/%d sigma2: %4.4f delta: %4.5f",iter+1,its,sigma2,rate);
@@ -738,8 +742,8 @@ static void estimate_warps(unsigned char g[], unsigned char f[],
       (void)mexPrintf("\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b");
       (void)fflush(stdout);
     }
-    /* after the minimum of 25 iterations we check the rate of change */
-    if (((rate < 5e-3) || (prevsigma2 < sigma2)) && (iter > 25))
+    /* after the minimum of 10 iterations we check the rate of change */
+    if (((rate < 5e-3) || (prevsigma2 < sigma2)) && (iter > 10))
       {countdown = countdown + 1;}
     else {countdown = 0;}
     prevsigma2 = sigma2;
@@ -773,13 +777,13 @@ static float *get_def_volume(const mxArray *ptr, int dims[3])
     return((float *)mxGetPr(ptr));
 }
 
-static unsigned char *get_uint8_volume(const mxArray *ptr, int dims[3])
+static float *get_volume(const mxArray *ptr, int dims[3])
 {
     int nd, i;
     const int *ldims;
     if (mxIsStruct(ptr) || !mxIsNumeric(ptr) || mxIsComplex(ptr) ||
-                mxIsSparse(ptr) || !mxIsUint8(ptr))
-        mexErrMsgTxt("Data must be uint8 multi-dimensional arrays.");
+                mxIsSparse(ptr) || !mxIsSingle(ptr))
+        mexErrMsgTxt("Data must be float multi-dimensional arrays.");
 
     nd = mxGetNumberOfDimensions(ptr);
     if (nd>3)
@@ -791,20 +795,20 @@ static unsigned char *get_uint8_volume(const mxArray *ptr, int dims[3])
     for(i=nd; i<3; i++)
         dims[i] = 1;
 
-    return((unsigned char *)mxGetPr(ptr));
+    return((float *)mxGetPr(ptr));
 }
 
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
-    unsigned char *f=0, *g=0;
+    float *f=0, *g=0;
     int dim_g[3], dim_f[3], its, meth, i;
     float lambda, epsilon, vox_g[3], vox_f[3];
     float *y0, *y1, *y2;
 
     if (nrhs!=7 || nlhs>0) mexErrMsgTxt("Incorrect usage.");
 
-    g = get_uint8_volume(prhs[0], dim_g);
-    f = get_uint8_volume(prhs[1], dim_f);
+    g = get_volume(prhs[0], dim_g);
+    f = get_volume(prhs[1], dim_f);
 
     y0 = get_def_volume(prhs[2],dim_g);
     y1 = get_def_volume(prhs[3],dim_g);

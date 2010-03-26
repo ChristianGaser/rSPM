@@ -119,13 +119,13 @@ for j=1:m
     matlabbatch{4}.spm.tools.rspm.hdw.subj.mov(1).src_exbranch = substruct('.','val', '{}',{3}, '.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1});
     matlabbatch{4}.spm.tools.rspm.hdw.subj.mov(1).src_output = substruct('.','sess', '()',{1}, '.','rfiles');
 	  matlabbatch{4}.spm.tools.rspm.hdw.bias_opts.nits = 8;
-	  matlabbatch{4}.spm.tools.rspm.hdw.bias_opts.fwhm = 6;
+	  matlabbatch{4}.spm.tools.rspm.hdw.bias_opts.fwhm = 10;
 	  matlabbatch{4}.spm.tools.rspm.hdw.bias_opts.reg = 1e-06;
 	  matlabbatch{4}.spm.tools.rspm.hdw.bias_opts.lmreg = 1e-06;
 	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.subsamp = {''};
 	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.weight = {fullfile(spmdir,'toolbox','rSPM','Brainmask-Paxinos.nii')};
-	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.nits = 50;
-	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.reg = 10;
+	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.nits = 30;
+	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.reg = 20;
 
   	% final non-linear normalization if previously only affine normalization was applied
 	  matlabbatch{5}.spm.spatial.normalise.estwrite.subj.source(1) = cfg_dep;
