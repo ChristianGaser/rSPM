@@ -1,4 +1,4 @@
-function cg_warp(G,F,Deformations,vx,param)
+function cg_warp(G,F,Defx,Defy,Defz,vx,param)
 % FORMAT out = ornlmMex(in, v, f, h)
 % 
 % G            - reference image
@@ -25,6 +25,6 @@ cd(pth);
 mex -O cg_warp.c 
 cd(p_path);
 
-cg_warp(G,F,Deformations,vx,param)
+cg_warp(G,F,,Defx,Defy,Defz,vx,param)
 
 return

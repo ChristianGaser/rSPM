@@ -2,17 +2,19 @@ function cg_preprocess_rats
 
 spmdir = spm('dir');
 
-don = 0;
 for j = 1:1000,
 	P{j} = spm_select(Inf,'image',['Select images, subject ' num2str(j)]);
-	if isempty(P{j}), don = 1;break; end;
-	if size(P{j},1) < 1
-		error('You need at least 2 files');
-	end
+	if isempty(P{j}), break; end;
 end;
 
-% use only affine nomalization for longitudinal data
-cutoff  = spm_input('Type of data?',1,'m','longitudinal data (affine normalization)|cross-sectional data (non-linear normalization)',[Inf 2],1);
+% use only affine nomalization for longitudinal data (# of files > 1)
+if size(P{1},1) > 1
+  cutoff = Inf;
+  fprintf('Processing of longitudinal data\n');
+else
+  cutoff = 2;
+  fprintf('Processing of cross-sectional data\n');
+end
 
 m = size(P,2) - 1;
 
