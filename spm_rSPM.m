@@ -3,6 +3,8 @@ function spm_rSPM
 %_______________________________________________________________________
 % @(#)spm_rSPM.m	v1.02 Christian Gaser 2008/06/18
 
+addpath(fileparts(which(mfilename)));
+
 SPMid = spm('FnBanner',mfilename,'v1.02');
 [Finter,Fgraph,CmdLine] = spm('FnUIsetup','rSPM');
 spm_help('!ContextHelp',mfilename);
