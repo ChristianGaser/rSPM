@@ -25,6 +25,6 @@ cd(pth);
 mex -O cg_warp.c 
 cd(p_path);
 
-cg_warp(G,F,,Defx,Defy,Defz,vx,param)
+cg_warp(G,F,Defx,Defy,Defz,vx,param)
 
 return
