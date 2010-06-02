@@ -18,6 +18,8 @@ end
 
 m = size(P,2) - 1;
 
+com = spm_input('Use center-of-mass for initial realignment ?','+1','m','yes|no',[1 0],1);
+
 % Step 1
 % Use registration to T2 template to get better starting estimates for the next steps
 for j=1:m
@@ -25,7 +27,9 @@ for j=1:m
 	for i=1:n
 	  file = deblank(P{j}(i,:));
     matlabbatch{1}.spm.spatial.coreg.estimate.ref = {fullfile(spmdir,'toolbox','rSPM','T2-Paxinos-avg36.nii')};  
-    cg_set_com(file);
+    if com
+      cg_set_com(file);
+    end
     matlabbatch{1}.spm.spatial.coreg.estimate.source = {file};
     matlabbatch{1}.spm.spatial.coreg.estimate.other = {''};
     matlabbatch{1}.spm.spatial.coreg.estimate.eoptions.cost_fun = 'nmi';

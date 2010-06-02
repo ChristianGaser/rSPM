@@ -33,7 +33,8 @@ SPM | Display
 Toolbox | rSPM | Preprocess data
  - select all images (time points) for each subject, press Done
  - to finish press done without select images
- - choose between longitudinal and cross-sectional data 
+ - use "center-of-mass initial realignment" as default (if normalization fails, set bregma manually
+   and deselect this option) 
  - resulting images, which should be further used are "wjd_my_rwr*" (volume changes)
  - warped anatomical images are "wrwr*"
  
