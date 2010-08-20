@@ -1,7 +1,6 @@
-% [signal_change0, xyz] = cg_confplot_spm(SPM,xSPM,hReg,scale,index,names, Ic)
+% [signal_change0, xyz] = cg_confplot_spm(SPM,xSPM,hReg,scale,names, Ic)
 %
 % SPM, xSPM, hReg	- parameters saved in workspace
-% index			- index of parameters to plot (for plotting selected columns)
 % scale    - scale factor for precent signal change of data
 % name			- optional names of columns given as {'name1','name2'...}
 % Ic			  - number of contrast (usually 1  for effects of interest)		
@@ -20,7 +19,7 @@ end
 
 CI    = 1.6449;					% = spm_invNcdf(1 - 0.05);
 
-%-Colour specifications and index;
+%-Colour specifications
 %-----------------------------------------------------------------------
 Col   = [0 0 0; .8 .8 .8; 1 0 0];
 
@@ -32,13 +31,15 @@ xY.def    = spm_input('VOI definition...',1,'b',...
 			{'sphere','box','cluster','voxel'},[],3);
 Q       = ones(1,size(xSPM.XYZmm,2));
 
+if ~exist('scale','var')
+    scale = spm_input('Scaling factor','+1', 'm',['1 (no scaling)|100 (for precent signal change)'],[1 100],2);
+end
+
 switch xY.def
 
 	case 'sphere'
 	%---------------------------------------------------------------
-	if ~isfield(xY,'spec')
-		xY.spec = spm_input('VOI radius (mm)','!+0','r',0,1,[0,Inf]);
-	end
+  xY.spec = spm_input('VOI radius (mm)','!+0','r',0,1,[0,Inf]);
 	d     = [xSPM.XYZmm(1,:) - xyz(1);
 		 xSPM.XYZmm(2,:) - xyz(2);
 		 xSPM.XYZmm(3,:) - xyz(3)];
@@ -47,10 +48,8 @@ switch xY.def
 
 	case 'box'
 	%---------------------------------------------------------------
-	if ~isfield(xY,'spec')
-		xY.spec = spm_input('box dimensions [x y z] {mm}',...
+	xY.spec = spm_input('box dimensions [x y z] {mm}',...
 			'!+0','r','0 0 0',3);
-	end
 	Q     = find(all(abs(xSPM.XYZmm - xyz*Q) <= xY.spec(:)*Q/2));
     XYZstr = sprintf(' averaged in box dimensions (%3.2f %3.2f %3.2f)', xY.spec);
 
@@ -72,23 +71,23 @@ switch xY.def
 end
 
     XYZ     = xSPM.XYZ(:,Q); 		% coordinates
-    scale0 = 1; 					% for percent signal change
 
 	%-Parameter estimates:   beta = xX.pKX*xX.K*y;
 	%-Residual mean square: ResMS = sum(R.^2)/xX.trRV
 	%---------------------------------------------------------------
 	
 	beta0  = spm_get_data(SPM.Vbeta, XYZ);
-	beta   = scale0*mean(beta0,2);
+	beta   = mean(beta0,2);
+	
 	try
         y      = spm_get_data(SPM.xY.VY, XYZ);
   catch
        warning('No raw data found');
   end
 	ResMS  = spm_get_data(SPM.VResMS,XYZ);
-	ResMS  = mean(ResMS,2)*scale0;
+	ResMS  = mean(ResMS,2);
 	Bcov   = ResMS*SPM.xX.Bcov;
-	Bcov   = Bcov *scale0;
+	Bcov   = Bcov;
 
 	% determine which contrast
 	%---------------------------------------------------------------
@@ -96,9 +95,6 @@ end
       Ic    = spm_input('Which contrast?','!+1','m',{SPM.xCon.name});
 	end
   
-  if ~exist('scale','var')
-      scale = spm_input('Scaling factor','+1', 'm',['1 (no scaling)|10 (for Jacobians)|100 (for segmentations)'],[1 10 100],1);
-	end
 	TITLE = {Cplot XYZstr};
 
 	% find contrast and related colu,ms in design matrix
@@ -108,17 +104,18 @@ end
   ind_y = unique(ind_y);
   X = SPM.xX.X;
   X = X(:,ind_y);
+  n_effects = size(X,2);
   
   if ~exist('names','var')
       define_names = spm_input('Define names?',1,'yes|use numbers',[1 0],1);
       if define_names
           names = [];
-          for i=1:length(ind_y)
+          for i=1:n_effects
               new_name = spm_input(['Name for parameter ' num2str(i)],1,'s');
               names = strvcat(names,new_name);
           end
       else
-          names = num2str((1:length(ind_y))');
+          names = num2str((1:n_effects)');
       end
   end
 
@@ -128,39 +125,27 @@ end
 	signal_change  = SPM.xCon(Ic).c'*beta;
 	CI    = CI*sqrt(diag(SPM.xCon(Ic).c'*Bcov*SPM.xCon(Ic).c));
 
-	% restrict output to selected columns
-	%--------------------------------------------------------------
-  if ~exist('index','var')
-		index = 1:length(signal_change);
-	end
-	signal_change0 = signal_change0(index,:);
-	signal_change  = signal_change(index);
-	X     = X(:,index);
-	beta0 = beta0(index,:);
-	beta  = beta(index);
-	CI = CI(index);
-
 	% GUI figure
 	%--------------------------------------------------------------
-	h = figure(10);
+	h10 = figure(10);
 	clf
-	set(h,'Position',[900 800 200 320],'MenuBar','none','NumberTitle','off');
-  hNewButton = uicontrol(h,...
-      'Position',[25 280 150 20],...
+	set(h10,'Position',[0 800 150 292],'MenuBar','none','NumberTitle','off');
+  hNewButton = uicontrol(h10,...
+      'Position',[20 250 110 20],...
       'Callback','cg_confplot_spm',...
       'Interruptible','on',...
       'Style','Pushbutton',...
-      'String','New plot',...
+      'String','Plot',...
       'Backgroundcolor',[1 .5 .5]);
-  hClearButton = uicontrol(h,...
-      'position',[25 240 150 20],...
+  hClearButton = uicontrol(h10,...
+      'position',[20 210 110 20],...
       'Callback','clear names Ic scale',...
       'Interruptible','on',...
       'Style','Pushbutton',...
       'string','Reset variables',...
       'backgroundcolor',[1 .5 .5]);
-  hCloseButton = uicontrol(h,...
-      'position',[25 200 150 20],...
+  hCloseButton = uicontrol(h10,...
+      'position',[20 170 110 20],...
       'Callback','close(10,11,12)',...
       'Interruptible','on',...
       'Style','Pushbutton',...
@@ -169,8 +154,8 @@ end
 
 	% % signal change plot
 	%--------------------------------------------------------------
-	h = figure(11);
-	set(h,'Position',[100 800 400 270],'NumberTitle','off');
+	h11 = figure(11);
+	set(h11,'Position',[150 800 400 270],'NumberTitle','off','Toolbar','none');
 	cla
 	hold on
 
@@ -187,7 +172,7 @@ end
 	end
 
 	title(TITLE,'FontSize',14,'FontWeight','bold')
-	ylabel('signal change','FontSize',12)
+	ylabel('parameter estimate','FontSize',12)
 	set(gca,'XLim',[0.4 (length(signal_change) + 0.6)],'XTick',1:length(signal_change));
   if exist('names','var')
 		if size(names,1) == length(signal_change)
@@ -198,8 +183,7 @@ end
 
 	% prepare raw values for boxplot
 	%--------------------------------------------------------------
-  n = size(X,2);
-  y2 = cell(1,n);
+  y2 = cell(1,n_effects);
 
   if scale == 1
       y_label = 'raw signal change';
@@ -208,11 +192,11 @@ end
   end
   
   try
-      for i=1:n
+      for i=1:n_effects
         y2{i} = scale*y(find(X(:,i)==1),:);
       end
-	    h = figure(12);
-	    set(h,'Position',[500 800 400 270],'NumberTitle','off');
+	    h12 = figure(12);
+	    set(h12,'Position',[550 800 400 270],'NumberTitle','off','Toolbar','none');
 	    cla
 	    cg_boxplot(y2);
 
@@ -237,7 +221,7 @@ return
 	cla
 	for i=1:length(signal_change)
 		beta1{i} = beta0(i,:);
-		signal_change1{i} = signal_change0(i,:)*scale0;
+		signal_change1{i} = signal_change0(i,:);
 	end
 	
 	cg_boxplot(signal_change1);
