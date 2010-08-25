@@ -22,7 +22,7 @@ subsamp.tag  = 'subsamp';
 subsamp.filter = 'image';
 subsamp.ufilter = '^.*';
 subsamp.num  = [0 1];
-subsamp.def     = @(val)spm_get_defaults('rspm.hdw.subsamp', val{:});
+subsamp.def     = @(val)cg_rSPM_get_defaults('hdw.subsamp', val{:});
 subsamp.help   = {[...
 'This is the reference image, which is used to subsample data to a smaller size']};
 %------------------------------------------------------------------------
@@ -33,7 +33,7 @@ weight.tag  = 'weight';
 weight.filter = 'image';
 weight.ufilter = '^.*';
 weight.num  = [0 1];
-weight.def     = @(val)spm_get_defaults('rspm.hdw.weight', val{:});
+weight.def     = @(val)cg_rSPM_get_defaults('hdw.weight', val{:});
 weight.help   = {[...
 'This is the mask image to limit warpings to values inside mask.']};
 %------------------------------------------------------------------------
@@ -72,7 +72,7 @@ nits.name = 'Iterations for bias correction';
 nits.tag  = 'nits';
 nits.strtype = 'n';
 nits.num  = [1 1];
-nits.def     = @(val)spm_get_defaults('rspm.hdw.nits_bias', val{:});
+nits.def     = @(val)cg_rSPM_get_defaults('hdw.nits_bias', val{:});
 nits.help = {'Number of iterations for the bias correction.'};
 
 %------------------------------------------------------------------------
@@ -85,7 +85,7 @@ biasfwhm.labels = {...
 '8mm cutoff','9mm cutoff','10mm cutoff','11mm cutoff','12mm cutoff',...
 '13mm cutoff','14mm cutoff','15mm cutoff','No correction'};
 biasfwhm.values = {3,4,5,6,7,8,9,10,11,12,13,14,15,Inf};
-biasfwhm.def     = @(val)spm_get_defaults('rspm.hdw.biasfwhm', val{:});
+biasfwhm.def     = @(val)cg_rSPM_get_defaults('hdw.biasfwhm', val{:});
 biasfwhm.help = {[...
 'FWHM of Gaussian smoothness of bias. If your intensity nonuniformity is very smooth, then choose a large FWHM. This will prevent the algorithm from trying to model out intensity variation due to different tissue types. The model for intensity nonuniformity is one of i.i.d. Gaussian noise that has been smoothed by some amount, before taking the exponential. Note also that smoother bias fields need fewer parameters to describe them. This means that the algorithm is faster for smoother intensity nonuniformities.']};
 
@@ -100,7 +100,7 @@ biasreg.labels = {...
 'medium regularisation','heavy regularisation',...
 'very heavy regularisation','extremely heavy regularisation'};
 biasreg.values = {0, 1e-9, 1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3};
-biasreg.def     = @(val)spm_get_defaults('rspm.hdw.biasreg', val{:});
+biasreg.def     = @(val)cg_rSPM_get_defaults('hdw.biasreg', val{:});
 biasreg.help = {[...
 'We know a priori that intensity variations due to MR physics tend to be spatially smooth, whereas those due to different tissue types tend to contain more high frequency information. A more accurate estimate of a bias field can be obtained by including prior knowledge about the distribution of the fields likely to be encountered by the correction algorithm. For example, if it is known that there is little or no intensity non-uniformity, then it would be wise to penalise large values for the intensity nonuniformity parameters. This regularisation can be placed within a Bayesian context, whereby the penalty incurred is the negative logarithm of a prior probability for any particular pattern of nonuniformity.']};
 
@@ -115,7 +115,7 @@ lmreg.labels = {...
 'medium regularisation','heavy regularisation',...
 'very heavy regularisation','extremely heavy regularisation'};
 lmreg.values = {0, 1e-9, 1e-8, 1e-7, 1e-6, 1e-5, 1e-4, 1e-3};
-lmreg.def     = @(val)spm_get_defaults('rspm.hdw.lmreg', val{:});
+lmreg.def     = @(val)cg_rSPM_get_defaults('hdw.lmreg', val{:});
 lmreg.help = {[...
 'Levenberg-Marquardt regularisation keeps the bias correction part stable. Higher values means more stability, but slower convergence.']};
 
@@ -137,7 +137,7 @@ warpreg.name = 'Warping regularisation';
 warpreg.tag  = 'reg';
 warpreg.strtype = 'e';
 warpreg.num  = [1 1];
-warpreg.def     = @(val)spm_get_defaults('rspm.hdw.warpreg', val{:});
+warpreg.def     = @(val)cg_rSPM_get_defaults('hdw.warpreg', val{:});
 warpreg.help = {[...
 'There is a tradeoff between the smoothness of the estimated warps, and the difference between the registered images.  Higher values mean smoother warps, at the expense of a lower mean squared difference between the images.']};
 
@@ -146,7 +146,7 @@ nits.name = 'Iterations for warping';
 nits.tag  = 'nits';
 nits.strtype = 'n';
 nits.num  = [1 1];
-nits.def     = @(val)spm_get_defaults('rspm.hdw.nits_reg', val{:});
+nits.def     = @(val)cg_rSPM_get_defaults('hdw.nits_reg', val{:});
 nits.help = {'Number of iterations for the warping.'};
 
 warp_opts = cfg_branch;
@@ -177,7 +177,7 @@ bb.name = 'Bounding box';
 bb.tag  = 'bb';
 bb.num  = [2 3];
 bb.strtype = 'e';
-bb.def     = @(val)spm_get_defaults('rspm.write.bb', val{:});
+bb.def     = @(val)cg_rSPM_get_defaults('write.bb', val{:});
 bb.help = {[...
 'The bounding box (in mm) of the volume which is to be written (relative to the anterior commissure).']};
 
@@ -188,7 +188,7 @@ vox.name = 'Voxel sizes';
 vox.tag  = 'vox';
 vox.num  = [1 3];
 vox.strtype = 'e';
-vox.def     = @(val)spm_get_defaults('rspm.write.vox', val{:});
+vox.def     = @(val)cg_rSPM_get_defaults('write.vox', val{:});
 vox.help = {'The voxel sizes (x, y & z, in mm) of the written normalised images.'};
 
 %------------------------------------------------------------------------
@@ -200,7 +200,7 @@ interp.labels = {'Nearest neighbour','Trilinear','2nd Degree B-spline',...
 '3rd Degree B-Spline ','4th Degree B-Spline ','5th Degree B-Spline',...
 '6th Degree B-Spline','7th Degree B-Spline'};
 interp.values = {0,1,2,3,4,5,6,7};
-interp.def     = @(val)spm_get_defaults('rspm.write.interp', val{:});
+interp.def     = @(val)cg_rSPM_get_defaults('write.interp', val{:});
 interp.help = {...
 ['The method by which the images are sampled when being written in a different space.'],...
 ['    Nearest Neighbour:     - Fastest, but not normally recommended.'],...
@@ -216,7 +216,7 @@ wrap.tag  = 'wrap';
 wrap.labels = {'No wrap','Wrap X','Wrap Y','Wrap X & Y','Wrap Z',...
 'Wrap X & Z','Wrap Y & Z','Wrap X, Y & Z'};
 wrap.values = {[0 0 0],[1 0 0],[0 1 0],[1 1 0],[0 0 1],[1 0 1],[0 1 1],[1 1 1]};
-wrap.def     = @(val)spm_get_defaults('rspm.write.wrap', val{:});
+wrap.def     = @(val)cg_rSPM_get_defaults('write.wrap', val{:});
 wrap.help = {...
 'These are typically:',...
 ['    No wrapping: for PET or images that have already                   been spatially transformed. '],...
