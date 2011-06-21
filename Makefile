@@ -1,6 +1,6 @@
 #!/usr/bin/env make -f
 #
-# $Id: Makefile 149 2009-09-02 05:34:26Z gaser $
+# $Id$
 
 VERSION=`svn info |grep Revision|sed -e 's/Revision: //g'`
 DATE=`svn info |grep 'Last Changed Date: '|sed -e 's/Last Changed Date: //g'|cut -f1 -d' '`

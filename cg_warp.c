@@ -1,5 +1,5 @@
 /*
- * $Id: spm_warp.c 2480 2008-11-19 17:47:49Z john $
+ * $Id$
  * John Ashburner
  * modified Christian Gaser 09/04/23
  */

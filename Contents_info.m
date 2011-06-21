@@ -6,7 +6,7 @@
 % (_)   (___/(__)  (_/\/\_)  http://dbm.neuro.uni-jena.de/vbm/
 %
 % ______________________________________________________________________
-% $Id: Contents_info.txt 272 2010-02-04 16:39:38Z gaser $
+% $Id$
 %  http://dbm.neuro.uni-jena.de
 %
 % General files

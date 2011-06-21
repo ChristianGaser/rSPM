@@ -116,7 +116,7 @@ function varargout = spm_orthviews(action,varargin)
 % Copyright (C) 2005 Wellcome Department of Imaging Neuroscience
 
 % John Ashburner, Matthew Brett, Tom Nichols and Volkmar Glauche
-% $Id: spm_orthviews.m 942 2007-10-14 17:02:18Z volkmar $
+% $Id$
 
 
 

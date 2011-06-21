@@ -23,7 +23,7 @@ function VO = cg_write_jacdet(prm,flags,extras)
 % Copyright (C) 2005 Wellcome Department of Imaging Neuroscience
 
 % John Ashburner
-% $Id: cg_write_jacdet.m 771 2007-03-20 14:19:41Z john $
+% $Id$
 %
 % @(#)cg_write_jacdet.m	v1.02 Christian Gaser 2008/06/16
 

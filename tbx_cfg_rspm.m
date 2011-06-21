@@ -4,7 +4,7 @@ function opts = cg_config_rSPM
 % Copyright (C) 2005 Wellcome Department of Imaging Neuroscience
 
 % based on John Ashburners version of
-% $Id: spm_config_rnorm.m 512 2006-05-05 08:14:50Z volkmar $
+% $Id$
 %
 % @(#)cg_config_rSPM.m	v1.02 Christian Gaser 2008/06/16
 
