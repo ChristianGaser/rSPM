@@ -27,7 +27,7 @@ for i=1:length(tbs)
 end
 
 atlas_label   = fullfile(rSPMdir,'Paxinos_labeled.nii');
-brainmask     = fullfile(rSPMdir,'Brainmask-Paxinos.nii');
+brainmask     = fullfile(rSPMdir,'Brainmask-Paxinos-avg48.nii');
 paxinos_atlas = fullfile(rSPMdir,'Paxinos_label.txt');
 
 flags = def_flags;

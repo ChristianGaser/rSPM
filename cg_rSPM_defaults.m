@@ -23,8 +23,8 @@ end
 rspm.estimate.smosrc  = 0.8;
 rspm.estimate.smoref  = 0.8;
 rspm.estimate.regtype = 'none';
-rspm.estimate.weight  = {fullfile(rSPMdir,'Brainmask-Paxinos.nii')};
-rspm.estimate.template= {fullfile(rSPMdir,'T2-Paxinos-avg36.nii')};
+rspm.estimate.weight  = {fullfile(rSPMdir,'Brainmask-Paxinos-avg48.nii')};
+rspm.estimate.template= {fullfile(rSPMdir,'T2-Paxinos-avg48.nii')};
 rspm.estimate.cutoff  = 2;
 rspm.estimate.nits    = 24;
 rspm.estimate.reg     = 0.5;
@@ -41,7 +41,7 @@ rspm.write.wrap       = [0 0 0];
 % HDW options
 %=======================================================================
 rspm.hdw.subsamp      = {''};
-rspm.hdw.weight       = {fullfile(rSPMdir,'Brainmask-Paxinos.nii')};
+rspm.hdw.weight       = {fullfile(rSPMdir,'Brainmask-Paxinos-avg48.nii')};
 rspm.hdw.nits_bias    = 8;
 rspm.hdw.biasfwhm     = 6;
 rspm.hdw.biasreg      = 1e-6;

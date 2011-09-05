@@ -26,7 +26,7 @@ for j=1:m
 	n = size(P{j},1);
 	for i=1:n
 	  file = deblank(P{j}(i,:));
-    matlabbatch{1}.spm.spatial.coreg.estimate.ref = {fullfile(spmdir,'toolbox','rSPM','T2-Paxinos-avg36.nii')};  
+    matlabbatch{1}.spm.spatial.coreg.estimate.ref = {fullfile(spmdir,'toolbox','rSPM','T2-Paxinos-avg48.nii')};  
     if com
       cg_set_com(file);
     end
@@ -78,8 +78,8 @@ for j=1:m
 	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.resample(1).sname = 'Realign: Estimate: Realigned Images (Sess 1)';
 	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.resample(1).src_exbranch = substruct('.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1});
 	matlabbatch{2}.spm.spatial.normalise.estwrite.subj.resample(1).src_output = substruct('.','sess', '()',{1}, '.','cfiles');
-	matlabbatch{2}.spm.spatial.normalise.estwrite.eoptions.template = {fullfile(spmdir,'toolbox','rSPM','T2-Paxinos-avg36.nii')};
-	matlabbatch{2}.spm.spatial.normalise.estwrite.eoptions.weight = {fullfile(spmdir,'toolbox','rSPM','Brainmask-Paxinos.nii')};
+	matlabbatch{2}.spm.spatial.normalise.estwrite.eoptions.template = {fullfile(spmdir,'toolbox','rSPM','T2-Paxinos-avg48.nii')};
+	matlabbatch{2}.spm.spatial.normalise.estwrite.eoptions.weight = {fullfile(spmdir,'toolbox','rSPM','Brainmask-Paxinos-avg48.nii')};
 	matlabbatch{2}.spm.spatial.normalise.estwrite.eoptions.smosrc = 0.8;
 	matlabbatch{2}.spm.spatial.normalise.estwrite.eoptions.smoref = 0.8;
 	matlabbatch{2}.spm.spatial.normalise.estwrite.eoptions.regtype = 'none';
@@ -129,7 +129,7 @@ for j=1:m
 	  matlabbatch{4}.spm.tools.rspm.hdw.bias_opts.reg = 1e-06;
 	  matlabbatch{4}.spm.tools.rspm.hdw.bias_opts.lmreg = 1e-06;
 	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.subsamp = {''};
-	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.weight = {fullfile(spmdir,'toolbox','rSPM','Brainmask-Paxinos.nii')};
+	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.weight = {fullfile(spmdir,'toolbox','rSPM','Brainmask-Paxinos-avg48.nii')};
 	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.nits = 30;
 	  matlabbatch{4}.spm.tools.rspm.hdw.warp_opts.reg = 20;
 
@@ -156,8 +156,8 @@ for j=1:m
     matlabbatch{5}.spm.spatial.normalise.estwrite.subj.resample(2).sname = 'High-Dimensional Warping: Jacobian determinant (Subj 1)';
     matlabbatch{5}.spm.spatial.normalise.estwrite.subj.resample(2).src_exbranch = substruct('.','val', '{}',{4}, '.','val', '{}',{1}, '.','val', '{}',{1}, '.','val', '{}',{1});
     matlabbatch{5}.spm.spatial.normalise.estwrite.subj.resample(2).src_output = substruct('()',{1}, '.','files');
-	  matlabbatch{5}.spm.spatial.normalise.estwrite.eoptions.template = {fullfile(spmdir,'toolbox','rSPM','T2-Paxinos-avg36.nii')};
-	  matlabbatch{5}.spm.spatial.normalise.estwrite.eoptions.weight = {fullfile(spmdir,'toolbox','rSPM','Brainmask-Paxinos.nii')};
+	  matlabbatch{5}.spm.spatial.normalise.estwrite.eoptions.template = {fullfile(spmdir,'toolbox','rSPM','T2-Paxinos-avg48.nii')};
+	  matlabbatch{5}.spm.spatial.normalise.estwrite.eoptions.weight = {fullfile(spmdir,'toolbox','rSPM','Brainmask-Paxinos-avg48.nii')};
 	  matlabbatch{5}.spm.spatial.normalise.estwrite.eoptions.smosrc = 0.8;
 	  matlabbatch{5}.spm.spatial.normalise.estwrite.eoptions.smoref = 0.8;
 	  matlabbatch{5}.spm.spatial.normalise.estwrite.eoptions.regtype = 'none';
