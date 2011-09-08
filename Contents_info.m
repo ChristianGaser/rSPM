@@ -30,8 +30,8 @@
 %   spm_dicom_convert.m
 %
 % Images
-%   T2-Paxinos-avg48.nii  - T2-weighted template based on average of 48 rats
-%   Brainmask-Paxinos-avg48.nii - brainmask of Paxinos template
+%   T2-Paxinos-avg176.nii - T2-weighted template based on average of 176 rats
+%   Brainmask-Paxinos-avg176.nii - brainmask of Paxinos template
 %   Ref0.4mm.nii          - reference image for subsampling to 0.4mm
 %   Paxinos_labeled.nii   - labeling according to Paxinos atlas
 %   Paxinos_label.txt     - name and ID of labels
