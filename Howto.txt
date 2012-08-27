@@ -14,7 +14,7 @@ cg_check_dicoms
 ----------------------------------------------------------------------------
 Toolbox | rSPM | DICOM Import | DICOM files | Select Files
  - goto most upper directory
- - Filt: ^MR (meants that names begin with "MR")
+ - Filt: ^MR (means that names begin with "MR")
  - Rec
  - select output directory
  - filenames are according to directory structure (e.g. PT_1W_xxx)
