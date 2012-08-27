@@ -66,7 +66,7 @@ return;
 function VO   = make_hdr_struct(V,x,y,z,mat)
 ind = findstr(V.fname,'_sn.mat');
 if ~isempty(ind)
-	[pth,nm,xt,vr] = fileparts(V.fname);
+	[pth,nm,xt,vr] = spm_fileparts(V.fname);
 	V.fname        = fullfile(pth,[nm(ind:end,:) '.img' vr]);
 end
 VO            = V;
@@ -89,7 +89,7 @@ return;
 
 %_______________________________________________________________________
 function PO = prepend(PI,pre)
-[pth,nm,xt,vr] = fileparts(deblank(PI));
+[pth,nm,xt,vr] = spm_fileparts(deblank(PI));
 PO             = fullfile(pth,[pre nm xt vr]);
 return;
 %_______________________________________________________________________
