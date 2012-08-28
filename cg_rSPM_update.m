@@ -22,7 +22,7 @@ r = 0;
 % get current release number
 A = ver;
 for i=1:length(A)
-  if strcmp(A(i).Name,'Voxel Based Morphometry Toolbox')
+  if strcmp(A(i).Name,'Rat SPM Toolbox')
     r = str2double(A(i).Version);
   end
 end

@@ -8,7 +8,7 @@ addpath(fileparts(which(mfilename)));
 SPMid = spm('FnBanner',mfilename,'v1.02');
 [Finter,Fgraph,CmdLine] = spm('FnUIsetup','rSPM');
 spm_help('!ContextHelp',mfilename);
-spm_help('!Disp','rSPM.man','',Fgraph,'      Morphometry toolbox for rats');
+spm_help('!Disp','rSPM.man','',Fgraph,'Morphometry toolbox for rats');
 
 fig = spm_figure('GetWin','Interactive');
 h0  = uimenu(fig,...
