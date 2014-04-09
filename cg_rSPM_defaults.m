@@ -33,7 +33,7 @@ rspm.estimate.wtsrc   = 0;
 % Writing options
 %=======================================================================
 rspm.write.preserve   = 0;
-rspm.write.bb         = [[-8.6 -16 -12];[8.6 8 1]];
+rspm.write.bb         = [[-8.5 -16 -12];[8.5 8 1]];
 rspm.write.vox        = [0.2 0.2 0.2];
 rspm.write.interp     = 1;
 rspm.write.wrap       = [0 0 0];
