@@ -7,6 +7,7 @@
 %
 % signal_change0 - scaled beta to obtain percent signal change
 % xyz			       - coordinates of local cluster maximum			
+% $Id$
 
 try
     [xyz,i] = spm_XYZreg('NearestXYZ',spm_XYZreg('GetCoords',hReg),xSPM.XYZmm);

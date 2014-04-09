@@ -3,10 +3,8 @@ function opts = cg_config_rSPM
 %_______________________________________________________________________
 % Copyright (C) 2005 Wellcome Department of Imaging Neuroscience
 
-% based on John Ashburners version of
+% based on John Ashburners version of tbx_cfg_rspm.m
 % $Id$
-%
-% @(#)cg_config_rSPM.m	v1.02 Christian Gaser 2008/06/16
 
 cg_rSPM_defaults
 

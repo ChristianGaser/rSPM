@@ -1,4 +1,6 @@
 function cg_preprocess_rats
+%
+% $Id$
 
 spmdir = spm('dir');
 

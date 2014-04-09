@@ -24,8 +24,6 @@ function VO = cg_write_jacdet(prm,flags,extras)
 
 % John Ashburner
 % $Id$
-%
-% @(#)cg_write_jacdet.m	v1.02 Christian Gaser 2008/06/16
 
 if isempty(prm), return; end;
 

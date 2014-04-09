@@ -1,7 +1,7 @@
 function spm_rSPM
 % rSPM Toolbox wrapper to call rSPM functions
 %_______________________________________________________________________
-% @(#)spm_rSPM.m	v1.02 Christian Gaser 2008/06/18
+% $Id$
 
 addpath(fileparts(which(mfilename)));
 

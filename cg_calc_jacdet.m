@@ -1,6 +1,6 @@
 function VO = cg_calc_jacdet(V,prm,x,y,z,mat,flags,pth)
-
-% @(#)cg_calc_jacdet.m	v1.02 Christian Gaser 2008/06/16
+%
+% $Id$
 
 [X,Y] = ndgrid(x,y);
 Tr = prm.Tr;

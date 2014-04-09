@@ -67,6 +67,7 @@ function s = cg_boxplot (data,notched,symbol,vertical,maxwhisker)
 %
 % modified by Christian Gaser (christian.gaser@uni-jena.de)
 % original version was written for octave by Alberto Terruzzi
+% $Id$
 
 % assign parameter defaults
 if nargin < 1 || nargin > 5
