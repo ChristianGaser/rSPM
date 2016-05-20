@@ -295,10 +295,27 @@ calcpaxinos.help = {[...
 'Use previously estimated warps (stored in imagename''_sn.mat'' files) to calculate volumes of Paxinos atlas.']};
 %------------------------------------------------------------------------
 
+data = cfg_files;
+data.name    = 'Jacobian determinants';
+data.tag     = 'data';
+data.filter  = 'image';
+data.ufilter = '^jd_.*';
+data.num = [1 Inf];
+data.help = {'Jacobian determinants between time points.'};
+
+calcpaxinos_long = cfg_exbranch;
+calcpaxinos_long.name = 'Calculate volume of Paxinos atlas';
+calcpaxinos_long.tag  = 'calcpaxinos_long';
+calcpaxinos_long.val  = {data,outpt};
+calcpaxinos_long.prog = @volume_paxinos_long;
+calcpaxinos_long.help = {[...
+'Use previously estimated warps between time points (e.g. longitudinal data) to calculate volumes of Paxinos atlas.']};
+%------------------------------------------------------------------------
+
 opts = cfg_choice;
 opts.name = 'rSPM';
 opts.tag  = 'rspm';
-opts.values = {writjac,calcpaxinos,hdw};
+opts.values = {writjac,calcpaxinos,calcpaxinos_long,hdw};
 opts.help = {
 'Help text needed!'};
 %------------------------------------------------------------------------
@@ -317,6 +334,38 @@ for i=1:length(job.data),
 	[pth, name] = fileparts(strvcat(job.data{i}));
 	fprintf('Calculate %s',name(1:end-3));
 	[vol_name, vol_left{i}, vol_right{i}] = cg_volume_paxinos(strvcat(job.data{i}));
+	% print names for left and right hemisphere
+	if i==1
+		fprintf(fid,'Name');
+		for j=1:size(vol_name,1)
+			fprintf(fid,';%s (L);%s (R)',deblank(vol_name(j,:)),deblank(vol_name(j,:)));
+		end
+		fprintf(fid,'\n');
+	end
+	fprintf(fid,'%s',name(1:end-3));
+	for j=1:size(vol_name,1)
+		fprintf(fid,';%7.5f;%7.5f',vol_left{i}(j), vol_right{i}(j));
+	end
+	fprintf(fid,'\n');
+	fprintf('\n');
+	spm_progress_bar('Set',i);
+end;
+
+spm_progress_bar('Clear');
+fclose(fid);
+
+return;
+%------------------------------------------------------------------------
+function volume_paxinos_long(varargin)
+job    = varargin{1};
+
+fid = fopen(job.output,'w');
+
+spm_progress_bar('Init',length(job.data),'Calculate volumes','files completed');
+for i=1:length(job.data),
+	[pth, name] = fileparts(strvcat(job.data{i}));
+	fprintf('Calculate %s',name);
+	[vol_name, vol_left{i}, vol_right{i}] = cg_volume_paxinos_long(strvcat(job.data{i}));
 	% print names for left and right hemisphere
 	if i==1
 		fprintf(fid,'Name');
