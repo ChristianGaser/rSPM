@@ -1,13 +1,15 @@
-function cg_preprocess_rats
+function cg_preprocess_rats(P)
 %
 % $Id$
 
 spmdir = spm('dir');
 
-for j = 1:1000,
+if nargin == 0
+  for j = 1:1000,
 	P{j} = spm_select(Inf,'image',['Select images, subject ' num2str(j)]);
 	if isempty(P{j}), break; end;
-end;
+  end
+end
 
 % use only affine nomalization for longitudinal data (# of files > 1)
 if size(P{1},1) > 1
