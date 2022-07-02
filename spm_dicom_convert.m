@@ -34,7 +34,7 @@ function out = spm_dicom_convert(hdr,opts,root_dir,format)
 % Copyright (C) 2008 Wellcome Trust Centre for Neuroimaging
 
 % John Ashburner & Jesper Andersson
-% $Id$
+% $Id: spm_dicom_convert.m 36 2012-08-28 11:42:20Z gaser $
 
 
 if nargin<2, opts     = 'all'; end

@@ -13,9 +13,9 @@ function cg_warp(G,F,Defx,Defy,Defz,vx,param)
 %
 %
 % Christian Gaser
-% $Id$
+% $Id: cg_warp.m 27 2011-06-21 15:00:15Z gaser $
 
-rev = '$Rev$';
+rev = '$Rev: 27 $';
 
 disp('Compiling cg_warp.c')
 

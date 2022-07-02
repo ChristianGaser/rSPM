@@ -1,6 +1,6 @@
 function cg_preprocess_rats(P)
 %
-% $Id$
+% $Id: cg_preprocess_rats.m 42 2018-02-01 14:55:56Z gaser $
 
 spmdir = spm('dir');
 

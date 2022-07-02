@@ -23,7 +23,7 @@ function VO = cg_write_jacdet(prm,flags,extras)
 % Copyright (C) 2005 Wellcome Department of Imaging Neuroscience
 
 % John Ashburner
-% $Id$
+% $Id: cg_write_jacdet.m 38 2014-04-09 09:01:05Z gaser $
 
 if isempty(prm), return; end;
 

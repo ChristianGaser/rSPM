@@ -67,7 +67,7 @@ function s = cg_boxplot (data,notched,symbol,vertical,maxwhisker)
 %
 % modified by Christian Gaser (christian.gaser@uni-jena.de)
 % original version was written for octave by Alberto Terruzzi
-% $Id$
+% $Id: cg_boxplot.m 38 2014-04-09 09:01:05Z gaser $
 
 % assign parameter defaults
 if nargin < 1 || nargin > 5
@@ -208,7 +208,7 @@ function y = prctile(x,p);
 %   the ith row of Y is the P(i) percentile of each column of X.
 
 %   Copyright 1993-2002 The MathWorks, Inc. 
-%   $Revision$  $Date$
+%   $Revision: 38 $  $Date: 2014-04-09 11:01:05 +0200 (Mi, 09 Apr 2014) $
 
 [prows pcols] = size(p);
 if prows ~= 1 & pcols ~= 1

@@ -2,7 +2,7 @@ function [vol_name, vol_left, vol_right] = cg_volume_paxinos(prm)
 % Write Out Jacobian Determinant Images.
 % FORMAT [vol_name, vol_left, vol_right] = cg_volume_paxinos(prm)
 %
-% % $Id$
+% % $Id: cg_volume_paxinos.m 38 2014-04-09 09:01:05Z gaser $
 
 if isempty(prm), return; end;
 

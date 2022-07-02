@@ -1,5 +1,5 @@
 /*
- * $Id$
+ * $Id: cg_warp.c 27 2011-06-21 15:00:15Z gaser $
  * John Ashburner
  * modified Christian Gaser 09/04/23
  */

@@ -7,7 +7,7 @@ function cg_rspm_defaults
 %
 % Care must be taken when modifying this file
 %_______________________________________________________________________
-% $Id$
+% $Id: cg_rSPM_defaults.m 39 2014-04-09 09:22:04Z gaser $
 
 global rspm
 

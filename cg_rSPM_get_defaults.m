@@ -17,7 +17,7 @@ function varargout = cg_rspm_get_defaults(defstr, varargin)
 
 % based on Volkmar Glauches version of
 % spm_get_defaults
-% $Id$
+% $Id: cg_rSPM_get_defaults.m 27 2011-06-21 15:00:15Z gaser $
 
 global rspm;
 if isempty(rspm)

@@ -9,7 +9,7 @@ function out = spm_hdw(job)
 
 % modified version of spm_warp from
 % John Ashburner
-% $Id$
+% $Id: cg_hdw.m 27 2011-06-21 15:00:15Z gaser $
 
 for i=1:numel(job.subj),
     out(i).files = cell(numel(job.subj(i).mov)-1,1);

@@ -1,6 +1,6 @@
 function cg_correct_bias_rats
 %
-% $Id$
+% $Id: cg_correct_bias_rats.m 39 2014-04-09 09:22:04Z gaser $
 
 if nargin==0
     P = spm_select(Inf,'image','Select images');

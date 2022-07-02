@@ -9,9 +9,9 @@ function cg_rSPM_update(update)
 % currently in the MATLAB path and will display the outcome.
 %_______________________________________________________________________
 % Christian Gaser
-% $Id$
+% $Id: cg_rSPM_update.m 35 2012-08-28 11:22:47Z gaser $
 
-rev = '$Rev$';
+rev = '$Rev: 35 $';
 
 if nargin == 0
   update = 0;

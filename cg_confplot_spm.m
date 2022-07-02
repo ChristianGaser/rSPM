@@ -7,7 +7,7 @@
 %
 % signal_change0 - scaled beta to obtain percent signal change
 % xyz			       - coordinates of local cluster maximum			
-% $Id$
+% $Id: cg_confplot_spm.m 38 2014-04-09 09:01:05Z gaser $
 
 try
     [xyz,i] = spm_XYZreg('NearestXYZ',spm_XYZreg('GetCoords',hReg),xSPM.XYZmm);
