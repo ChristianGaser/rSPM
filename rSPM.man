@@ -1,12 +1,12 @@
 % __________________________________________________________________________
 % Rat SPM Toolbox
 % Version  42  (rSPM)  2018-02-01
-%  http://dbm.neuro.uni-jena.de/vbm/
+% https://neuro-jena.github.io
 % __________________________________________________________________________
 %        ___  ____  __  __
 %  ___  / __)(  _ \(  \/  )  
 % (___) \__ \ )___/ )    (   Rat Statistical Parametric Mapping
-% (_)   (___/(__)  (_/\/\_)  http://dbm.neuro.uni-jena.de/vbm/
+% (_)   (___/(__)  (_/\/\_)  https://neuro-jena.github.io
 %
 % __________________________________________________________________________
 % (C) 2010 Christian Gaser christian.gaser@uni-jena.de
